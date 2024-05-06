@@ -17,6 +17,13 @@ export default async function handleRequest(
 ) {
   const {nonce, header, NonceProvider} = createContentSecurityPolicy();
 
+  createContentSecurityPolicy({
+    connectSrc: [
+      // (ie. 'wss://<your-ngrok-domain>.app:*')
+      'wss://directly-touched-dragon.ngrok-free.app:*',
+    ],
+  });
+
   const body = await renderToReadableStream(
     <NonceProvider>
       <RemixServer context={remixContext} url={request.url} />

@@ -64,6 +64,7 @@ function FeaturedCollection({collection}) {
 function RecommendedProducts({products}) {
   return (
     <div className="recommended-products">
+      <h1>Hello</h1>
       <h2>Recommended Products</h2>
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
@@ -83,8 +84,12 @@ function RecommendedProducts({products}) {
                   <h4>{product.title}</h4>
                   <small>
                     <Money data={product.priceRange.minVariantPrice} />
+                    
                   </small>
+                  <p>Alternate Price</p>
+                  <p>{product.metafield?.value}</p>
                 </Link>
+                
               ))}
             </div>
           )}
@@ -123,6 +128,9 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     id
     title
     handle
+    metafield( key:"price2" namespace:"custom"){
+      value
+    }
     priceRange {
       minVariantPrice {
         amount
